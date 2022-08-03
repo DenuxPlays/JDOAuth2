@@ -20,6 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class JDOAuth2 {
@@ -106,13 +107,21 @@ public class JDOAuth2 {
      * Get a Bot application object. <br>
      * Only works with bot accounts.
      */
-    public AuthInformation getAuthInformation() {
-        return gson.fromJson(getRequest("/@me"), AuthInformation.class);
+    public AuthInformation fetchAuthInformation() {
+        return gson.fromJson(getRequest(Constants.oAUTH_URL + "/@me"), AuthInformation.class);
+    }
+
+    /**
+     * Gets you all guild ids you are in.
+     * @return a list of guild ids.
+     */
+    public List<Long> fetchGuildIds() {
+        return gson.fromJson(getRequest(Constants.BASE_URL + "/users/@me/guilds"), List.class);
     }
 
     private String getRequest(@Nonnull String path) {
         Request request = new Request.Builder()
-                .url(Constants.oAUTH_URL + path)
+                .url(path)
                 .build();
         try(Response response = config.getHttpClient().newCall(request).execute()) {
             if (!response.isSuccessful()) {
