@@ -13,7 +13,7 @@ plugins {
 
 group = "dev.denux"
 val archivesBaseName = "jdaoauth2"
-version = "1.0.0-alpha.1"
+version = "1.0.0"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_11
