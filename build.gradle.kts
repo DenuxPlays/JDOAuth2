@@ -48,9 +48,6 @@ dependencies {
     api("com.google.code.findbugs:jsr305:3.0.2")
     api("javax.annotation:javax.annotation-api:1.3.2")
 
-    //compileOnly("net.dv8tion:JDA:5.0.0-alpha.17")
-
-    testImplementation("com.github.Mokulu:discord-oauth2-api:1.0.2")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
 }
