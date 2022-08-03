@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import dev.denux.jdaoauth2.exceptions.HttpFailedResponseException;
 import dev.denux.jdaoauth2.internal.GrantType;
 import dev.denux.jdaoauth2.internal.Scope;
+import dev.denux.jdaoauth2.internal.model.AuthInformation;
 import dev.denux.jdaoauth2.internal.model.Tokens;
 import dev.denux.jdaoauth2.system.JDOAuth2Config;
 import okhttp3.FormBody;
@@ -95,6 +96,31 @@ public class JDOAuth2 {
             String json = response.body().string();
             response.close();
             return gson.fromJson(json, Tokens.class);
+        } catch (IOException exception) {
+            log.error("Failed to refresh token", exception);
+            return null;
+        }
+    }
+
+    /**
+     * Get a Bot application object. <br>
+     * Only works with bot accounts.
+     */
+    public AuthInformation getAuthInformation() {
+        return gson.fromJson(getRequest("/@me"), AuthInformation.class);
+    }
+
+    private String getRequest(@Nonnull String path) {
+        Request request = new Request.Builder()
+                .url(Constants.oAUTH_URL + path)
+                .build();
+        try(Response response = config.getHttpClient().newCall(request).execute()) {
+            if (!response.isSuccessful()) {
+                throw new HttpFailedResponseException("Failed to perform request.", response.code());
+            }
+            String json = response.body().string();
+            response.close();
+            return json;
         } catch (IOException exception) {
             log.error("Failed to refresh token", exception);
             return null;
