@@ -42,7 +42,7 @@ dependencies {
     api("org.apache.httpcomponents.client5:httpclient5:5.2")
     api("com.squareup.okhttp3:okhttp:4.10.0")
     api("org.slf4j:slf4j-api:2.0.3")
-    api("com.google.code.gson:gson:2.9.1")
+    api("com.google.code.gson:gson:2.10")
 
     //annotations
     api("com.google.code.findbugs:jsr305:3.0.2")
