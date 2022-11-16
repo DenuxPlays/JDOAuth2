@@ -48,7 +48,7 @@ dependencies {
     api("com.google.code.findbugs:jsr305:3.0.2")
     api("javax.annotation:javax.annotation-api:1.3.2")
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
 }
 
