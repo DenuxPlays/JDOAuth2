@@ -41,7 +41,7 @@ repositories {
 dependencies {
     api("org.apache.httpcomponents.client5:httpclient5:5.2.1")
     api("com.squareup.okhttp3:okhttp:4.10.0")
-    api("org.slf4j:slf4j-api:2.0.5")
+    api("org.slf4j:slf4j-api:2.0.6")
     api("com.google.code.gson:gson:2.10")
 
     //annotations
