@@ -23,7 +23,7 @@ public enum Scope {
 
     //guilds
     GUILDS("guilds"),
-    GUILDS_JOIN8("guilds.join"),
+    GUILDS_JOIN("guilds.join"),
     GUILDS_MEMBERS_READ("guilds.members.read"),
 
     IDENTIFY("identify"),

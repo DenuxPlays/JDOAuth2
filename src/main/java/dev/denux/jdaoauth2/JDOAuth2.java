@@ -4,10 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dev.denux.jdaoauth2.exceptions.HttpFailedResponseException;
 import dev.denux.jdaoauth2.internal.GrantType;
-import dev.denux.jdaoauth2.internal.Scope;
-import dev.denux.jdaoauth2.internal.model.AuthInformation;
 import dev.denux.jdaoauth2.internal.model.Tokens;
+import dev.denux.jdaoauth2.internal.model.auth.AuthInformation;
 import dev.denux.jdaoauth2.system.JDOAuth2Config;
+import dev.denux.jdaoauth2.util.RequestHelper;
 import okhttp3.FormBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -21,7 +21,6 @@ import javax.annotation.Nullable;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class JDOAuth2 {
     private static final Logger log = LoggerFactory.getLogger(JDOAuth2.class);
@@ -48,7 +47,7 @@ public class JDOAuth2 {
         builder.addParameter("response_type", "code");
         builder.addParameter("client_id", config.getClientId());
         builder.addParameter("redirect_uri", config.getRedirectUri());
-        return builder + "&scope=" + config.getScopes().stream().map(Scope::getScope).collect(Collectors.joining("%20"));
+        return builder + "&scope=" + String.join("%20", config.getScopes());
     }
 
     /**
@@ -64,7 +63,7 @@ public class JDOAuth2 {
                 .add("grant_type", GrantType.AUTHORIZATION_CODE.getGrantType())
                 .add("code", code)
                 .add("redirect_uri", config.getRedirectUri())
-                .add("scope", config.getScopes().stream().map(Scope::getScope).collect(Collectors.joining("%20")))
+                .add("scope", String.join("%20", config.getScopes()))
                 .build();
         return performRequest(formBody);
     }
@@ -107,29 +106,8 @@ public class JDOAuth2 {
      * Get a Bot application object. <br>
      * Only works with bot accounts.
      */
-    public AuthInformation fetchAuthInformation(@Nonnull String code) {
-        RequestBody formBody = new FormBody.Builder()
-                .add("client_id", config.getClientId())
-                .add("code", code)
-                .add("redirect_uri", config.getRedirectUri())
-                .add("scope", config.getScopes().stream().map(Scope::getScope).collect(Collectors.joining("%20")))
-                .build();
-        Request request = new Request.Builder()
-                .url(Constants.oAUTH_URL + "/@me")
-                .post(formBody)
-                .header("Content-Type", "application/x-www-form-urlencoded")
-                .build();
-        try(Response response = config.getHttpClient().newCall(request).execute()) {
-            if (!response.isSuccessful()) {
-                throw new HttpFailedResponseException("Failed to perform request.", response.code());
-            }
-            String json = response.body().string();
-            response.close();
-            return gson.fromJson(json, AuthInformation.class);
-        } catch (IOException exception) {
-            log.error("Failed to refresh token", exception);
-            return null;
-        }
+    public AuthInformation fetchAuthInformation(@Nonnull String token) {
+        return gson.fromJson(RequestHelper.bearerAuthentication(token, Constants.ME_URL, config), AuthInformation.class);
     }
 
     /**

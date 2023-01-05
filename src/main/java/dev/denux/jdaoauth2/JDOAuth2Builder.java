@@ -53,6 +53,16 @@ public class JDOAuth2Builder {
      * @return the builder. Good for chaining.
      */
     public @Nonnull JDOAuth2Builder setScopes(@Nonnull Scope... scopes) {
+        config.setScopes(Arrays.stream(scopes).map(Scope::getScope).collect(Collectors.toSet()));
+        return this;
+    }
+
+    /**
+     * Sets the scopes.
+     * @param scopes the scopes.
+     * @return the builder. Good for chaining.
+     */
+    public @Nonnull JDOAuth2Builder setScopes(@Nonnull String... scopes) {
         config.setScopes(Arrays.stream(scopes).collect(Collectors.toSet()));
         return this;
     }

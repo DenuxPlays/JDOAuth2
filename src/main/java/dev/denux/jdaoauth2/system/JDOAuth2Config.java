@@ -13,7 +13,7 @@ public class JDOAuth2Config {
     private String clientId;
     private String clientSecret;
     private String redirectUri;
-    private Set<Scope> scopes;
+    private Set<String> scopes;
     private OkHttpClient httpClient = new OkHttpClient();
 
     public OkHttpClient getHttpClient() {
@@ -48,11 +48,11 @@ public class JDOAuth2Config {
         this.redirectUri = redirectUri;
     }
 
-    public Set<Scope> getScopes() {
+    public Set<String > getScopes() {
         return scopes;
     }
 
-    public void setScopes(Set<Scope> scopes) {
+    public void setScopes(Set<String> scopes) {
         this.scopes = scopes;
     }
 }
