@@ -1,6 +1,5 @@
 package dev.denux.jdaoauth2.system;
 
-import dev.denux.jdaoauth2.internal.Scope;
 import okhttp3.OkHttpClient;
 
 import java.util.Set;

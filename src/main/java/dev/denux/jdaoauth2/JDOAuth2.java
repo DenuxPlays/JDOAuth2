@@ -2,8 +2,10 @@ package dev.denux.jdaoauth2;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import dev.denux.jdaoauth2.exceptions.HttpFailedResponseException;
 import dev.denux.jdaoauth2.internal.GrantType;
+import dev.denux.jdaoauth2.internal.model.IdWrapper;
 import dev.denux.jdaoauth2.internal.model.Tokens;
 import dev.denux.jdaoauth2.internal.model.auth.AuthInformation;
 import dev.denux.jdaoauth2.system.JDOAuth2Config;
@@ -19,11 +21,13 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.URISyntaxException;
 import java.util.List;
 
 public class JDOAuth2 {
     private static final Logger log = LoggerFactory.getLogger(JDOAuth2.class);
+    private static final Type type = new TypeToken<List<IdWrapper>>(){}.getType();
 
     private final Gson gson = new GsonBuilder().enableComplexMapKeySerialization().serializeNulls().create();
     private final JDOAuth2Config config;
@@ -101,11 +105,6 @@ public class JDOAuth2 {
             return null;
         }
     }
-
-    /**
-     * Get a Bot application object. <br>
-     * Only works with bot accounts.
-     */
     public AuthInformation fetchAuthInformation(@Nonnull String token) {
         return gson.fromJson(RequestHelper.bearerAuthentication(token, Constants.ME_URL, config), AuthInformation.class);
     }
@@ -114,8 +113,9 @@ public class JDOAuth2 {
      * Gets you all guild ids you are in.
      * @return a list of guild ids.
      */
-    public List<Long> fetchGuildIds() {
-        return gson.fromJson(getRequest(Constants.BASE_URL + "/users/@me/guilds"), List.class);
+    public List<IdWrapper> fetchGuildIds(@Nonnull String token) {
+        return gson.fromJson(RequestHelper.bearerAuthentication(token, Constants.BASE_URL + "/users/@me/guilds",
+                        config), type);
     }
 
     private String getRequest(@Nonnull String path) {
