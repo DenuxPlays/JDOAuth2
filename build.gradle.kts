@@ -39,17 +39,16 @@ repositories {
 }
 
 dependencies {
-    api("org.apache.httpcomponents.client5:httpclient5:5.1.3")
+    api("org.apache.httpcomponents.client5:httpclient5:5.2.1")
     api("com.squareup.okhttp3:okhttp:4.10.0")
-    api("org.slf4j:slf4j-api:1.7.36")
-    api("com.google.code.gson:gson:2.9.1")
+    api("org.slf4j:slf4j-api:2.0.6")
+    api("com.google.code.gson:gson:2.10")
 
     //annotations
-    api("com.google.code.findbugs:jsr305:3.0.2")
-    api("javax.annotation:javax.annotation-api:1.3.2")
+    compileOnly("com.google.code.findbugs:jsr305:3.0.2")
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.1")
 }
 
 tasks.withType<Test> {
