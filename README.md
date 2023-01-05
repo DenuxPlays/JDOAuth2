@@ -23,7 +23,7 @@ Add the dependency
 <dependency> 
     <groupId>com.github.DenuxPlays</groupId> 
     <artifactId>JDOAuth2</artifactId> 
-    <version>1.1.0-alpha.1</version> 
+    <version>2.0.0-alpha.1</version> 
 </dependency>
 ```
 
@@ -41,6 +41,6 @@ Add the dependency
 ```gradle
 dependencies {
     [...]
-    implementation("com.github.DenuxPlays:JDOAuth2:1.1.0-alpha.1")
+    implementation("com.github.DenuxPlays:JDOAuth2:2.0.0-alpha.1")
 }
 ```
