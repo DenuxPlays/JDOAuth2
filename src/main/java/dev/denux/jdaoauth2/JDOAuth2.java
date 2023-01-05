@@ -32,7 +32,7 @@ public class JDOAuth2 {
     private final Gson gson = new GsonBuilder().enableComplexMapKeySerialization().serializeNulls().create();
     private final JDOAuth2Config config;
 
-    protected JDOAuth2(@Nonnull JDOAuth2Config config) {
+    public JDOAuth2(@Nonnull JDOAuth2Config config) {
         this.config = config;
     }
 
