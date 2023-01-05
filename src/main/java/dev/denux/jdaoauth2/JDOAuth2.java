@@ -107,8 +107,29 @@ public class JDOAuth2 {
      * Get a Bot application object. <br>
      * Only works with bot accounts.
      */
-    public AuthInformation fetchAuthInformation() {
-        return gson.fromJson(getRequest(Constants.oAUTH_URL + "/@me"), AuthInformation.class);
+    public AuthInformation fetchAuthInformation(@Nonnull String code) {
+        RequestBody formBody = new FormBody.Builder()
+                .add("client_id", config.getClientId())
+                .add("code", code)
+                .add("redirect_uri", config.getRedirectUri())
+                .add("scope", config.getScopes().stream().map(Scope::getScope).collect(Collectors.joining("%20")))
+                .build();
+        Request request = new Request.Builder()
+                .url(Constants.oAUTH_URL + "/@me")
+                .post(formBody)
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .build();
+        try(Response response = config.getHttpClient().newCall(request).execute()) {
+            if (!response.isSuccessful()) {
+                throw new HttpFailedResponseException("Failed to perform request.", response.code());
+            }
+            String json = response.body().string();
+            response.close();
+            return gson.fromJson(json, AuthInformation.class);
+        } catch (IOException exception) {
+            log.error("Failed to refresh token", exception);
+            return null;
+        }
     }
 
     /**

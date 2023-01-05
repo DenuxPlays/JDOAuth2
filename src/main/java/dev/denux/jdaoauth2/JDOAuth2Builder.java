@@ -12,8 +12,19 @@ public class JDOAuth2Builder {
 
     private final JDOAuth2Config config;
 
-    public JDOAuth2Builder() {
+    private JDOAuth2Builder(String clientSecret) {
         config = new JDOAuth2Config();
+        config.setClientSecret(clientSecret);
+    }
+
+    /**
+     * Sets the client secret.
+     * @param clientSecret the client secret.
+     * @return the builder. Good for chaining.
+     */
+    @Nonnull
+    public static JDOAuth2Builder setClientSecret(@Nonnull String clientSecret) {
+        return new JDOAuth2Builder(clientSecret);
     }
 
     /**
@@ -23,16 +34,6 @@ public class JDOAuth2Builder {
      */
     public @Nonnull JDOAuth2Builder setClientId(@Nonnull String clientId) {
         config.setClientId(clientId);
-        return this;
-    }
-
-    /**
-     * Sets the client secret.
-     * @param clientSecret the client secret.
-     * @return the builder. Good for chaining.
-     */
-    public @Nonnull JDOAuth2Builder setClientSecret(@Nonnull String clientSecret) {
-        config.setClientSecret(clientSecret);
         return this;
     }
 
