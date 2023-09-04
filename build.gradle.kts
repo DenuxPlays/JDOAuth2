@@ -43,7 +43,7 @@ val lombokVersion = "1.18.28"
 dependencies {
     api("org.apache.httpcomponents.client5:httpclient5:5.2.1")
     api("com.squareup.okhttp3:okhttp:4.11.0")
-    api("org.slf4j:slf4j-api:2.0.7")
+    api("org.slf4j:slf4j-api:2.0.9")
     api("com.google.code.gson:gson:2.10.1")
 
     //annotations
