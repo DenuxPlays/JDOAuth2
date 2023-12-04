@@ -41,7 +41,7 @@ repositories {
 val lombokVersion = "1.18.30"
 
 dependencies {
-    api("org.apache.httpcomponents.client5:httpclient5:5.2.2")
+    api("org.apache.httpcomponents.client5:httpclient5:5.2.3")
     api("com.squareup.okhttp3:okhttp:4.12.0")
     api("org.slf4j:slf4j-api:2.0.9")
     api("com.google.code.gson:gson:2.10.1")
