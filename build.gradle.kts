@@ -38,7 +38,7 @@ repositories {
     maven(url = "https://jitpack.io")
 }
 
-val lombokVersion = "1.18.30"
+val lombokVersion = "1.18.32"
 
 dependencies {
     api("org.apache.httpcomponents.client5:httpclient5:5.3.1")
