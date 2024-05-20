@@ -44,7 +44,7 @@ dependencies {
     api("org.apache.httpcomponents.client5:httpclient5:5.3.1")
     api("com.squareup.okhttp3:okhttp:4.12.0")
     api("org.slf4j:slf4j-api:2.0.13")
-    api("com.google.code.gson:gson:2.10.1")
+    api("com.google.code.gson:gson:2.11.0")
 
     //annotations
     compileOnly("com.google.code.findbugs:jsr305:3.0.2")
