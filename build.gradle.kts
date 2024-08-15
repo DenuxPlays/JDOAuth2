@@ -56,7 +56,7 @@ dependencies {
     testAnnotationProcessor("org.projectlombok:lombok:$lombokVersion")
 
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.11.0")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.3")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.0")
 }
 
 tasks.withType<Test> {
